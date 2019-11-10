@@ -7,7 +7,7 @@ from matplotlib.widgets import Button
 plt.style.use('seaborn-darkgrid')
 
 # def for plots
-def pt(df):
+def pt(df, name):
     plt.rcParams['figure.figsize'] = (11,6)
     plt.rcParams['figure.dpi'] = 150
 
@@ -17,7 +17,7 @@ def pt(df):
     fig, ax1 = plt.subplots()
 
     color = 'orangered'
-    #ax1.set_xlabel('Plot Show the correlation between GP and PPG over a career')
+    ax1.set_xlabel(name)
     ax1.set_ylabel('Points Per Game', color=color)
     ax1.plot(df.Year, PPG, color=color)
     ax1.tick_params(axis='y', labelcolor=color)
@@ -30,7 +30,7 @@ def pt(df):
     ax2.tick_params(axis='y', labelcolor=color)
 
     fig.tight_layout()  # otherwise the right y-label is slightly clipped
-    plt.title('Games Play VS Points Per Game over a career', pad=1)
+    plt.title('Games Play VS Points Per Game', pad=1)
     plt.gcf().autofmt_xdate()
     plt.show()
 
@@ -189,9 +189,11 @@ def data(url):
         print('This did not work!')
 
 if __name__ == "__main__":
-    # url = input('Please enter link here: ')
-    url = 'https://en.wikipedia.org/wiki/LeBron_James'
+    url = input('Please enter link here to see player stats: ')
+    # url = 'https://en.wikipedia.org/wiki/LeBron_James'
+    a = url.split('/')
+    name = a[4].replace('_', ' ')
     df = data(url)
     print(df)
-    pt(df)
+    pt(df, name)
     exit
